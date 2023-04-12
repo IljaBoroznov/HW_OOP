@@ -1,103 +1,61 @@
 package OOP.HW_OOP.HW_3;
 
 import java.util.Iterator;
-
-public class MyList<E> implements Iterable<E> {
-    /*Создать список по аналогии LinkedList (список связанных элементов),
-     реализовать в нем iterable интерфейс. 
-     Список должен содержать элементы со ссылкой на следующий элемент 
-     (если показалось мало, то реализовать ссылку и на предыдущий элемент) */
-
-    private Node<E> node = null;
-    private int count = 0;
+        
+        public class MyList<L> implements Iterable<L>{
+        private Node<L> last = null;
+        private Node<L> first = null;
+        private int size = 0;
     
-    private class MyListIterator implements Iterator<E>{
-        private Node<E> current;
-        private boolean isFirst = true;
-        
-        private MyListIterator(Node<E> node){
-            current = node; 
-        }
-        
-        @Override 
-        public boolean hasNext(){
-            if(count == 1 && isFirst){
-                return true;
+        public MyList<L> add(L data) {
+            Node<L> element = new Node<>(data);
+            if (size == 0) {
+                first = element;
+            } else {
+                last.setNext(element);
             }
-            return current.isNext();
+            last = element;
+            size++;
+            return this;
         }
+    
         @Override
-        public E next(){
-            return current.get();
+        public Iterator<L> iterator() {
+            return new ListIterator();
         }
-        
-
-
-    }
-
-    public MyList(){
-        node = new Node<>();
-    }
-    public int size(){
-        return count;
-    }
-
-    public void add(E element){
-        if(count == 0){
-            node.set(element);
-        }
-        else{
-            node.add(element);
-        }
-        count++;
-    }
     
-
-    @Override
-    public Iterator<E> iterator(){
-        return new MyListIterator(node);
-    }
-    /* 
-    @Override
-    public String toString(){
-        return String.format("данные: ", node.get());
-    }
-    */
-    private class Node<E>{
-        private E element;
-        private Node<E> next = null;
-
-        Node(){}
-        Node(E element){
-            set(element);
-        }
-        boolean isNext(){
-            return next != null;
-        }
-        E get(){
-            return element;
-        }
-
-        void set(E element){
-            this.element = element;
-        }
-        void add(E element){
-            if(isNext()){
-                next.add(element);
-            }
-            else{
-                next = new Node<>(element);
-            }
-        
-        
-        } 
-        
-        
-
-
-
-    }
+        private class ListIterator implements Iterator<L> {
+            private Node<L> currentNode = first;
     
+            @Override
+            public boolean hasNext() {
+                return currentNode != null;
+            }
+    
+            @Override
+            public L next() {
+                L data = currentNode.getData();
+                currentNode = currentNode.getNext();
+                return data;
+            }
+        }
+    
+        private class Node<L> {
+            L data;
+            Node<L> next;
+        
+            Node(L data) {
+                this.data = data;
+            }
+            public L getData() {
+                return this.data;
+            }
+            public Node<L> getNext() {
+                return this.next;
+            }
+            public void setNext(Node<L> next) {
+                this.next = next;
+            }
+        }
+    }
 
-
-}
