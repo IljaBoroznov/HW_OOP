@@ -1,0 +1,18 @@
+package OOP.HW_OOP.HW_4;
+
+public abstract class Throwing implements Weapon{
+    int range;
+
+    public Throwing(int range) {
+        this.range = range;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Метательное. Урон: %d. Расстояние: %d", damage(), getRange());
+    }
+}
