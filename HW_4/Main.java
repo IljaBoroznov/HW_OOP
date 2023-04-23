@@ -13,9 +13,18 @@ public class Main {
         System.out.println();
         System.out.println(thiefTeam);
         */
+        Team<Warrior> team = new Team<>();
+        team.addPers(new Archer("Artur", 100, new Bow(20), new Armor()));
+        team.addPers(new Thief("Oleg", 150, new Knife(), new Shield()));
+        System.out.println(team);
+        System.out.println("максимальная защита в команде: " + team.maxProtect());
+        /*
         Archer robin = new Archer("Робин Гуд", 50, new Bow(20), new Armor());
         Archer gud = new Archer("Василий", 50, new Bow(50), new Armor());
         Battle fight = new Battle(robin,gud);
         fight.run();
+        */
     }
+       
+
 }
